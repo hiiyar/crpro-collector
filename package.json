@@ -3,5 +3,17 @@
   "name": "crpro-collector",
   "version": "0.0.1",
   "main": "index.js",
-  "author": "Assisneto <netodamasceno12@gmail.com>, Lucas Reis <thereis@live.com>"
+  "author": "Assisneto <netodamasceno12@gmail.com>, Lucas Reis <thereis@live.com>",
+  "scripts": {
+    "dev": "nodemon src/server.ts --exec \"ts-node\""
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "ts-node": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "nodemon": "^1.18.9",
+    "typescript": "^3.2.2"
+  }
 }
