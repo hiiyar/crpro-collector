@@ -1,7 +1,7 @@
 {
+  "private": true,
   "name": "crpro-collector",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
-  "author": "Assisneto <netodamasceno12@gmail.com>, Reis",
-  "license": "MIT"
+  "author": "Assisneto <netodamasceno12@gmail.com>, Lucas Reis <thereis@live.com>"
 }
