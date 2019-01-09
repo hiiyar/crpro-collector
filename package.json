@@ -8,6 +8,7 @@
     "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\""
   },
   "dependencies": {
+    "@types/mongoose-promise": "^4.5.7",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",

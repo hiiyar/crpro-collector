@@ -9,6 +9,8 @@ export class Routes {
         messagem: "deu certo"
       });
     });
-    app.route("/player").get(this.playerController.addNewPlayer);
+    app.route("/player")
+      .put(this.playerController.addNewPlayer)
+      .get(this.playerController.getPlayers);
   }
 }
