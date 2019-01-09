@@ -1,35 +1,23 @@
-import * as mongoose from 'mongoose';
-import { PlayersSchema } from '../models/SchemaPlayer';
-import { Request, Response } from 'express';
-import * as axios from 'axios'
+import * as mongoose from "mongoose";
+// import { PlayersSchema } from "../models/SchemaPlayer";
+import { Request, Response } from "express";
 
-const Player =mongoose.model('Player',PlayersSchema);
+import { CRService } from "../services/cr.service";
+
+import { Player } from "../models/player/Player";
+
+// const Player = mongoose.model("Player", PlayersSchema);
 
 export class PlayerController {
-  
-  public addNewPlayer(req:Request, res:Response){
-    const api = axios.default.create({
-      baseURL: 'https://api.clashroyale.com/',
-      headers: {
-        Accept: 'application/json',
-        authorization:`${process.env.API_KEY}`,
-      },
-    })
-    const response = api.get('v1/players/%23QULC80YP')
-      .then((data)=>{
-        console.log(data.data)
-      });
-    // //let newPlayer = new Player(req.body);
+  async addNewPlayer(req: Request, res: Response) {
+    try {
+      const response = await CRService.get("v1/players/%23PL8RQRJ9J");
 
-    // console.log(newPlayer);
+      let newPlayer = new Player(response.data);
 
-    // newPlayer.save((err, player)=>{
-    //   if(err){
-    //     res.send(err);
-    //   }    
-    //   res.json(player);
-    // })
-
+      return res.send({ ...newPlayer });
+    } catch (e) {
+      throw e;
+    }
   }
-
 }
