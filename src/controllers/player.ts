@@ -1,37 +1,55 @@
+import * as express from "express";
 import * as mongoose from "mongoose";
-import { PlayersSchema } from "../models/SchemaPlayer";
-import { Request, Response } from "express";
 
+/**
+ * Services
+ */
 import { CRService } from "../services/cr.service";
 
+/**
+ * Dependencies
+ */
+import { PlayerSchema } from "../models/PlayerSchema";
+import { PlayerUtils } from "../utils/player.utils";
+
+/**
+ * Models
+ */
 import { Player } from "../models/player/Player";
 
-const PlayerSchema = mongoose.model("Player", PlayersSchema);
+const playerModel = mongoose.model("Player", PlayerSchema);
 
 export class PlayerController {
-  async addNewPlayer(req: Request, res: Response) {
+  async fetchPlayer(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
     try {
-      const response = await CRService.get("v1/players/%23GQV0P8");
-      
-      let newPlayer = new Player(response.data);
-      let newSchemaPlayer = new PlayerSchema({...newPlayer})
-      newSchemaPlayer.save((err,player)=>{
-        if(err){
-          res.send(err);
-        }    
-      return res.json(player);
-      })
-     
+      // Validate and fix player tag
+      let tag = PlayerUtils.validatePlayerTag(req.params.tag);
+
+      // Do the request
+      const response = await CRService.get(`v1/players/%23${tag}`);
+      const player: Player = response.data;
+
+      // Declare player schema
+      let schema = new playerModel({ _id: tag, ...player });
+
+      // Check if exists
+      let playerExists = await playerModel.findById(tag);
+
+      if (!playerExists) {
+        schema.save();
+      } else {
+        playerModel.updateOne({}, { ...player }, (err, raw) => {
+          if (err) throw err;
+        });
+      }
+
+      return res.send({ ...player });
     } catch (e) {
-      throw e;
+      next(e);
     }
-  }
-  async getPlayers(req: Request, res: Response){
-   PlayerSchema.find({},(err, player)=>{
-    if(err){
-      res.send(err);
-    }
-  res.json(player);
-   })
   }
 }

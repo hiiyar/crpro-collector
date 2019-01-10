@@ -1,5 +1,25 @@
-import app from "./app"
+/**
+ * Services
+ */
+import { MongoService } from "./services/mongo.service";
+import { ExpressService } from "./services/express.service";
 
-const PORT = process.env.PORT;
+class Server {
+  constructor() {
+    console.log("Starting crpro collector...");
+  }
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+  async start() {
+    try {
+      // Mongo service
+      await MongoService.start();
+
+      // Express service
+      await ExpressService.start();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+}
+
+new Server().start();

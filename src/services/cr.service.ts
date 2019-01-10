@@ -8,7 +8,7 @@ class Service {
       baseURL: "https://api.clashroyale.com/",
       headers: {
         Accept: "application/json",
-        Authorization: `${process.env.API_KEY}`
+        Authorization: `Bearer ${process.env.API_KEY}`
       }
     });
   }
@@ -22,13 +22,9 @@ class Service {
 
         let request = await this.axios.get(route);
 
-        if (request.status !== 200) {
-          throw new Error(request.data);
-        }
-
         resolve(request);
       } catch (e) {
-        throw e;
+        reject(e);
       }
     });
   }

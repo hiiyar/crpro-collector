@@ -1,4 +1,4 @@
-export class PlayerCard {
+export interface PlayerCard {
   id?: string;
   name?: string;
   level?: number;
@@ -7,8 +7,4 @@ export class PlayerCard {
   iconUrls?: {
     medium: string;
   };
-
-  constructor(init?: Partial<PlayerCard>) {
-    Object.assign(this, init);
-  }
 }
