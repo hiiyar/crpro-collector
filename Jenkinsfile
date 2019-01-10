@@ -10,11 +10,11 @@ node {
     }
 
     stage ('Build container') {
-        app = docker.build("us.gcr.io/crpro-gg-228022/crpro-collector", "-f docker/production/Dockerfile .")
+        app = docker.build("gcr.io/crpro-gg-228022/crpro-collector", "-f docker/production/Dockerfile .")
     }
 
      stage('Publish to Google Register') {
-        docker.withRegistry('https://gcr.io', 'gcr:jenkins-gcr@crpro-gg-228022.iam.gserviceaccount.com') {
+        docker.withRegistry('https://gcr.io', 'gcr:cc3bb651eb324bd85590be26e2bf7aaecb797e27') {
           app.push("latest")
         }
      }
