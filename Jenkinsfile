@@ -14,7 +14,7 @@ node {
     }
 
      stage('Publish to Google Register') {
-        docker.withRegistry('https://us.gcr.io', 'gcr:jenkins-gcr@crpro-gg-228022.iam.gserviceaccount.com') {
+        docker.withRegistry('https://gcr.io', 'gcr:jenkins-gcr@crpro-gg-228022.iam.gserviceaccount.com') {
           app.push("latest")
         }
      }
