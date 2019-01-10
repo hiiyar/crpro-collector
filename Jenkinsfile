@@ -10,7 +10,7 @@ node {
     }
 
     stage ('Build container') {
-        app = docker.build("hiiyar/crpro-collector", "-f docker/prod/Dockerfile .")
+        app = docker.build("hiiyar/crpro-collector", "-f docker/production/Dockerfile .")
     }
 
      stage('Publish to Google Register') {
