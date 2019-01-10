@@ -14,7 +14,7 @@ node {
     }
 
      stage('Publish to Google Register') {
-        docker.withRegistry('https://us.gcr.io', 'gcr:cc3bb651eb324bd85590be26e2bf7aaecb797e27') {
+        docker.withRegistry('https://us.gcr.io', 'gcr:106812314727011567943') {
           app.push("latest")
         }
      }
