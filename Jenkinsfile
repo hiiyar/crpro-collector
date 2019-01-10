@@ -1,28 +1,26 @@
-pipeline {
-  agent any
-  stages {
-    stage('Clone branch') {
-      steps {
-        echo "Iniciando o deploy do Collector - ${env.BRANCH_NAME}"
+import java.text.SimpleDateFormat
+
+node {
+    def app
+    def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm")
+    def date = new Date()
+
+    stage ('Clone Repository') {
         checkout scm
-      }
     }
-    stage('Build Image Container') {
-      steps {
-        echo 'Build Docker Container'
+
+    stage ('Build container') {
         app = docker.build("hiiyar/crpro-collector", "-f docker/prod/Dockerfile .")
-      }
     }
-    stage('Push on Google Register') {
-      steps {
-        echo 'Publicar no Google Cloud'
-        
-      }
-    }
-    stage('Publish application') {
-      steps {
-        echo 'Finalizado com sucesso'
-      }
-    }
-  }
+
+     stage('Publish to Google Register') {
+         if (env.BRANCH_NAME =~ /(master)/) {
+            echo 'Publicando na master'
+         }
+
+         if (env.BRANCH_NAME =~ /(release*)/) {
+            echo 'Publicando na release'
+         }
+     }
+
 }
