@@ -47,7 +47,7 @@ export class PlayerController {
         });
       }
 
-      return res.send({ ...player });
+      return res.json({ ...player });
     } catch (e) {
       next(e);
     }

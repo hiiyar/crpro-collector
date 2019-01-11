@@ -5,7 +5,7 @@ class Utils {
 
     if (tag.includes("#")) {
       // Convert ascii to html entities
-      tag = tag.replace("#", "%23");
+      tag = tag.replace("#", "");
     }
 
     // Check length
