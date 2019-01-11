@@ -4,3 +4,6 @@ package-lock.json
 
 # Project configurations
 .env
+
+# Log files
+*.log

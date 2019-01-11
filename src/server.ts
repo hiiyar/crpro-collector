@@ -1,7 +1,27 @@
-import * as express from "express";
+/**
+ * Services
+ */
+import { MongoService } from "./services/mongo.service";
+import { ExpressService } from "./services/express.service";
 
-const app = express();
+class Server {
+  constructor() {
+    console.log("Starting crpro collector...");
+  }
 
-const PORT = process.env.PORT || 3000;
+  start(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // Mongo service
+        await MongoService.start();
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+        // Express service
+        await ExpressService.start();
+      } catch (e) {
+        console.log(e.message);
+      }
+    });
+  }
+}
+
+export const Collector = new Server().start();

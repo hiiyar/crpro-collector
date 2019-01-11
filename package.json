@@ -5,17 +5,35 @@
   "main": "index.js",
   "author": "Assisneto <netodamasceno12@gmail.com>, Lucas Reis <thereis@live.com>",
   "scripts": {
-    "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\""
+    "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\"",
+    "test": "mocha --timeout 10000 -r ts-node/register -r dotenv/config tests/**/*.ts"
   },
   "dependencies": {
+    "@types/mongoose-promise": "^4.5.7",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "mongoose": "5.4.3",
     "ts-node": "^7.0.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/chai-http": "^3.0.5",
+    "@types/chai-json-schema": "^1.4.3",
     "@types/dotenv": "^6.1.0",
     "@types/express": "^4.16.0",
+    "@types/mocha": "^5.2.5",
+    "@types/mongodb": "^3.1.18",
+    "@types/mongoose": "^5.3.7",
+    "@types/supertest": "^2.0.7",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "chai-json-schema": "^1.5.0",
+    "mocha": "^5.2.0",
+    "mocha-typescript": "^1.1.17",
     "nodemon": "^1.18.9",
+    "supertest": "^3.3.0",
     "typescript": "^3.2.2"
   }
 }
