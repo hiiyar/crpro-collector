@@ -6,7 +6,7 @@
   "author": "Assisneto <netodamasceno12@gmail.com>, Lucas Reis <thereis@live.com>",
   "scripts": {
     "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\"",
-    "test": "mocha --timeout 10000 -r ts-node/register -r dotenv/config tests/**/*.ts"
+    "test": "mocha --timeout 10000 -r ts-node/register -r dotenv/config \"./tests/**/*.test.ts\""
   },
   "dependencies": {
     "@types/mongoose-promise": "^4.5.7",
