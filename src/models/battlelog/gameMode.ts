@@ -1,5 +1,5 @@
 
 export interface gameMode {
-    id?: number,
-    name?: string,
+    id: number;
+    name: string;
 }
