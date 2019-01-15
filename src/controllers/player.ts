@@ -34,20 +34,25 @@ export class PlayerController {
       const player: Player = response.data;
 
       // Declare player schema
-      let schema = new playerModel({ _id: tag, ...player });
+      let schema = new playerModel({
+        _id: tag,
+        ...player,
+        lastUpdate: new Date()
+      });
 
-      // Check if exists
-      let playerExists = await playerModel.findById(tag);
-
-      if (!playerExists) {
-        schema.save();
-      } else {
-        playerModel.updateOne({}, { ...player }, (err, raw) => {
+      // Create a document if not exists or update it
+      playerModel.collection.findOneAndUpdate(
+        {
+          _id: tag
+        },
+        schema,
+        { upsert: true },
+        (err, raw) => {
           if (err) throw err;
-        });
-      }
+        }
+      );
 
-      return res.json({ ...player });
+      return res.json(schema.toJSON());
     } catch (e) {
       next(e);
     }
