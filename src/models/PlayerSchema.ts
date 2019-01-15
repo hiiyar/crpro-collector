@@ -74,5 +74,6 @@ export const PlayerSchema = new mongoose.Schema({
     iconUrls: {
       medium: String
     }
-  }
+  },
+  lastUpdate: Date
 });
