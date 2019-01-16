@@ -5,7 +5,10 @@ class Service {
 
   constructor() {
     this.axios = axios.default.create({
-      baseURL: "https://api.clashroyale.com/",
+      baseURL:
+        process.env.NODE_ENV === "development"
+          ? "http://35.194.5.158/"
+          : "https://api.clashroyale.com/",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${process.env.API_KEY}`
