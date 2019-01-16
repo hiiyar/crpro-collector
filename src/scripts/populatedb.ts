@@ -7,7 +7,7 @@ const getPlayer = async (tag: string) => {
   try {
     console.log(`Collecting ${tag} opponents...`);
 
-    let response = await CRService.get(`/v1/players/%23${tag}/battlelog`);
+    let response = await CRService.get(`v1/players/%23${tag}/battlelog`);
 
     let data: object[] = response.data;
 
