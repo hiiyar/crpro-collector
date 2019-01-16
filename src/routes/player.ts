@@ -5,7 +5,6 @@ class Routes {
   router = Router();
 
   private playerController: PlayerController = new PlayerController();
-
   constructor() {
     this.routes();
   }
@@ -20,6 +19,7 @@ class Routes {
    */
   fetchPlayer() {
     this.router.get("/:tag", this.playerController.fetchPlayer);
+    this.router.get("/:tag/battles",this.playerController.fetchBattlelog)
   }
 
   // public routes(app: express.Application): void {

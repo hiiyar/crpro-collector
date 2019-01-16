@@ -5,7 +5,7 @@ import * as bodyParser from "body-parser";
  * Collector routes
  */
 import { PlayerRoutes } from "../routes/player";
-import { BattleLogRoutes } from "../routes/battleLog";
+
 
 class Service {
   app: express.Application = express();
@@ -25,7 +25,6 @@ class Service {
 
       // add routes
       this.app.use("/player", PlayerRoutes);
-      this.app.use("/player/battlelog",BattleLogRoutes);
 
       // add not found
       this.app.use(this.notFound);
