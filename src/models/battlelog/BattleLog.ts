@@ -6,11 +6,11 @@ export interface BattleLog
 
 {
   type?: string;
-  battleTime?: string;
+  battleTime: string;
   arena?: PlayerArena;
   gameMode?:gameMode;
   deckSelection?: string;
   team: Team[];
-  opponent?: Team[];
+  opponent: Team[];
   
 }

@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose"
-const BattleSchema = new mongoose.Schema({
+export const BattleLogSchema = new mongoose.Schema({
+      _id: String,
       type: String,
       battleTime: String,
       arena: {
@@ -64,8 +65,3 @@ const BattleSchema = new mongoose.Schema({
         }
       ]
 })
-
-export const BattleLogSchema = new mongoose.Schema({
-  _id: String,
-  BattleLog:[BattleSchema],
-}) 
