@@ -5,12 +5,13 @@ import * as bodyParser from "body-parser";
  * Collector routes
  */
 import { PlayerRoutes } from "../routes/player";
+import { BattleRoutes } from "../routes/battle";
 
 
 class Service {
   app: express.Application = express();
 
-  constructor() {}
+  constructor() { }
 
   private config(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -25,6 +26,7 @@ class Service {
 
       // add routes
       this.app.use("/player", PlayerRoutes);
+      this.app.use("/battle", BattleRoutes)
 
       // add not found
       this.app.use(this.notFound);
