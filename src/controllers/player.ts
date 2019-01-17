@@ -73,7 +73,7 @@ export class PlayerController {
 
       const response = await CRService.get(`v1/players/%23${tag}/battlelog`);
       const battlelog: BattleLog[] = response.data;
-
+      const batlles: mongoose.Document[] = []
       for (let index = 0; index < battlelog.length; index++) {
         for (let i = 0; i < battlelog[index].team.length; i++) {
 
@@ -87,12 +87,14 @@ export class PlayerController {
           let battlelogExists = await battleLogModel.findById(_id);
           if (!battlelogExists) {
             const schema = new battleLogModel({ _id: _id, ...battlelog[index], tags: tags })
-              .save();
-          }
+              .save((err, res) => {
+                batlles.push(res);
+              })
+          } else batlles.push(battlelogExists)
         }
       }
 
-      return res.json({ ...battlelog });
+      return res.json({ ...batlles });
     } catch (e) {
       next(e);
     }
