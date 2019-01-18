@@ -17,6 +17,7 @@ class Server {
 
         // Express service
         await ExpressService.start();
+
       } catch (e) {
         console.log(e.message);
       }

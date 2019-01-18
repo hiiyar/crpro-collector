@@ -5,6 +5,7 @@ import * as mongoose from "mongoose";
  * Services
  */
 import { CRService } from "../services/cr.service";
+import { ElasticSearchService } from "../services/elasticsearch.service";
 
 /**
  * Dependencies
@@ -16,6 +17,7 @@ import { PlayerUtils } from "../utils/player.utils";
  * Models
  */
 import { Player } from "../models/player/Player";
+import { AnaliticsService } from '../services/analitics.service';
 
 const playerModel = mongoose.model("Player", PlayerSchema);
 
@@ -47,8 +49,16 @@ export class PlayerController {
         });
       }
 
+      // Send to Analitics Service
+      const playerSummaryData = await AnaliticsService.setPlayerSummary(tag, player);
+
+      //Send to ElasticSearch
+      await ElasticSearchService.pushData('dashboard', 'players', tag, playerSummaryData);
+
       return res.json({ ...player });
+
     } catch (e) {
+      console.log(e);
       next(e);
     }
   }
