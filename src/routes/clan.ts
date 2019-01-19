@@ -16,6 +16,7 @@ class Routes {
 
   fetchClan() {
     this.router.get("/:tag", this.clanController.fetchClan);
+    this.router.get("/:tag/members", this.clanController.fetchClanMembers);
   }
 }
 
