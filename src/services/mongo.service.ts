@@ -24,6 +24,25 @@ class Service {
       }
     });
   }
+
+  stop(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        if (!this.mongooseInstance) {
+          throw new Error("Mongo service is not initialized.");
+        }
+
+        console.log("Disconnecting from mongo service...");
+
+        this.mongooseInstance.disconnect();
+
+        console.log("Disconnected!");
+        resolve();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  }
 }
 
 export const MongoService = new Service();

@@ -12,8 +12,7 @@ import { CRService } from "../services/cr.service";
 import { PlayerSchema } from "../models/PlayerSchema";
 import { BattleLogSchema } from "../models/BattleLogSchema";
 import { PlayerUtils } from "../utils/player.utils";
-import { tagBattleUtils } from "../utils/tagBattle.utils";
-import { validateTagUtils } from "../utils/validateTag.utils";
+import { battleUtils } from "../utils/tagBattle.utils";
 
 /**
  * Models
@@ -62,39 +61,54 @@ export class PlayerController {
       next(e);
     }
   }
+
   async fetchBattlelog(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) {
     try {
-
-      let tag = PlayerUtils.validatePlayerTag(req.params.tag);
+      const tag = PlayerUtils.validatePlayerTag(req.params.tag);
 
       const response = await CRService.get(`v1/players/%23${tag}/battlelog`);
+
       const battlelog: BattleLog[] = response.data;
-      const batlles: mongoose.Document[] = []
+      const battles: mongoose.Document[] = [];
+
+      /**
+       * Iterate over found matches
+       */
       for (let index = 0; index < battlelog.length; index++) {
-        for (let i = 0; i < battlelog[index].team.length; i++) {
+        const battle = battlelog[index];
 
-          const _id = tagBattleUtils.generateTag(battlelog[index].team[i].tag,
-            battlelog[index].opponent[i].tag,
-            battlelog[index].battleTime)
+        const _id = battleUtils.generateBattleId(
+          battle.team,
+          battle.opponent,
+          battle.battleTime
+        );
 
-          const tags = [validateTagUtils.validate(battlelog[index].team[i].tag),
-          validateTagUtils.validate(battlelog[index].opponent[i].tag)]
+        const tags = battleUtils.getPlayersTags(battle.team, battle.opponent);
 
-          let battlelogExists = await battleLogModel.findById(_id);
-          if (!battlelogExists) {
-            const schema = new battleLogModel({ _id: _id, ...battlelog[index], tags: tags })
-              .save((err, res) => {
-                batlles.push(res);
-              })
-          } else batlles.push(battlelogExists)
+        let battleExists = await battleLogModel.findById(_id);
+
+        if (!battleExists) {
+          const schema = new battleLogModel({
+            _id,
+            tags,
+            ...battle
+          });
+
+          await schema.save((err, raw) => {
+            if (err) throw err;
+          });
+
+          battles.push(schema);
+        } else {
+          battles.push(battleExists);
         }
       }
-
-      return res.json({ ...batlles });
+      
+      return res.json({ battles });
     } catch (e) {
       next(e);
     }

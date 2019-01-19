@@ -5,7 +5,7 @@ import * as chaiJsonSchema from "chai-json-schema";
 import { ExpressService } from "../../src/services/express.service";
 import { MongoService } from "../../src/services/mongo.service";
 
-import { data } from "./playerData";
+import { playerData } from "./playerData";
 
 chai.use(chaiJsonSchema);
 chai.should();
@@ -14,15 +14,16 @@ const request = supertest(ExpressService.app);
 
 describe("Information Player", () => {
   before(async () => {
-    MongoService.start();
-    ExpressService.start();
+    await MongoService.start();
+    await ExpressService.start();
   });
 
   after(() => {
-    process.exit();
+    MongoService.stop();
+    ExpressService.stop();
   });
 
-  it("Data is json", done => {
+  it("PlayerData is json", done => {
     request
       .get("/player/9CQJQYP2")
       .set("Accept", "application/json")
@@ -32,7 +33,7 @@ describe("Information Player", () => {
 
   it("Player Schema", done => {
     request.get("/player/9CQJQYP2").end((err, res) => {
-      chai.expect(res.body).to.be.jsonSchema(data);
+      chai.expect(res.body).to.be.jsonSchema(playerData);
       done();
     });
   });
