@@ -1,4 +1,4 @@
-export class validateTag {
+export class ValidateTag {
   validate(tag: string) {
     // Convert to uppercase
     tag = tag.toUpperCase();
@@ -10,4 +10,4 @@ export class validateTag {
     return tag;
   }
 }
-export const validateTagUtils = new validateTag();
+export const validateTagUtils = new ValidateTag();

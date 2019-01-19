@@ -1,11 +1,21 @@
-import { validateTag } from "./validateTag.utils";
-class Utils extends validateTag {
-  generateTag(tag1: string, tag2: string, battleTime: string) {
-    const tag = [this.validate(tag1), this.validate(tag2)];
-    tag.sort()
-    tag.push(battleTime)
-    return tag.join("")
+import { ValidateTag } from "./validateTag.utils";
+import { Team } from "models/battlelog/Team";
+
+class Utils extends ValidateTag {
+  getTags = (team: Team[]) => {
+    return team.map(team => this.validate(team.tag));
+  };
+
+  generateBattleId(team: Team[], opponent: Team[], battleTime: string) {
+    let teamMates = this.getTags(team);
+    let opponents = this.getTags(opponent);
+
+    return [...teamMates, ...opponents].sort().join("") + battleTime;
   }
+
+  getPlayersTags = (team: Team[], opponent: Team[]) => {
+    return [...this.getTags(team), ...this.getTags(opponent)].sort();
+  };
 }
 
-export const tagBattleUtils = new Utils();
+export const battleUtils = new Utils();
