@@ -7,6 +7,7 @@ import * as http from "http";
  */
 import { PlayerRoutes } from "../routes/player";
 import { BattleRoutes } from "../routes/battle";
+import { ClanRoutes } from "../routes/clan";
 
 class Service {
   app: express.Application = express();
@@ -28,6 +29,7 @@ class Service {
       // add routes
       this.app.use("/player", PlayerRoutes);
       this.app.use("/battle", BattleRoutes);
+      this.app.use("/clan", ClanRoutes);
 
       // add not found
       this.app.use(this.notFound);
