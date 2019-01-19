@@ -10,7 +10,6 @@ import { CRService } from "../services/cr.service";
 /**
  * Models
  */
-
 import { ClanSchema } from "../models/ClanSchema";
 import { Clan } from "../models/clan/Clan";
 import { ClanMembersList } from "models/clan/ClanMembersList";
