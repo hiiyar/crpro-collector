@@ -8,6 +8,7 @@ class Service {
       baseURL: process.env.API_URL
         ? process.env.API_URL
         : "https://api.clashroyale.com/",
+
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${process.env.API_KEY}`

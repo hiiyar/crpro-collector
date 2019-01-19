@@ -107,6 +107,7 @@ export class PlayerController {
           battles.push(battleExists);
         }
       }
+      
       return res.json({ battles });
     } catch (e) {
       next(e);
