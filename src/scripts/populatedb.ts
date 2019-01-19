@@ -23,6 +23,11 @@ const getPlayer = async (tag: string) => {
 
         console.log(`Querying ${pTag}...`);
         await axios.get(`http://localhost:3000/player/${pTag}`);
+        
+        console.log(`Querying battles ${pTag}...`);
+        await axios.get(`http://localhost:3000/player/${pTag}/battles`);
+        console.log('Querying battles OK');
+
       });
     });
 
@@ -47,7 +52,7 @@ const getPlayer = async (tag: string) => {
 };
 
 const main = () => {
-  getPlayer("2QR0P02G");
+  getPlayer("2JGYG2YY");
 };
 
 main();

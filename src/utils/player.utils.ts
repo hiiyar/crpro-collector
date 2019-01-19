@@ -1,13 +1,8 @@
-class Utils {
+import { ValidateTag } from "./validateTag.utils";
+
+class Utils extends ValidateTag {
   validatePlayerTag(tag: string) {
-    // Convert to uppercase
-    tag = tag.toUpperCase();
-
-    if (tag.includes("#")) {
-      // Convert ascii to html entities
-      tag = tag.replace("#", "");
-    }
-
+    tag = this.validate(tag);
     // Check length
     if (tag.length < 3) {
       throw Error("Player tag length must be more than 3 characters.");

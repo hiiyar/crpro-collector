@@ -1,13 +1,16 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as http from "http";
 
 /**
  * Collector routes
  */
 import { PlayerRoutes } from "../routes/player";
+import { BattleRoutes } from "../routes/battle";
 
 class Service {
   app: express.Application = express();
+  server?: http.Server;
 
   constructor() {}
 
@@ -24,6 +27,7 @@ class Service {
 
       // add routes
       this.app.use("/player", PlayerRoutes);
+      this.app.use("/battle", BattleRoutes);
 
       // add not found
       this.app.use(this.notFound);
@@ -49,13 +53,31 @@ class Service {
         // express configuration
         this.config();
 
-        this.app.listen(PORT, () =>
+        this.server = this.app.listen(PORT, () =>
           console.log(`Express running on port: ${PORT}`)
         );
 
         resolve();
       } catch (e) {
-        console.log("vim start");
+        console.log(e);
+      }
+    });
+  }
+
+  stop(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        if (!this.server || !this.app) {
+          throw new Error("Express service is not initialized.");
+        }
+
+        console.log("Closing express service...");
+        this.server.close();
+        console.log("Closed!");
+
+        resolve();
+      } catch (e) {
+        console.log(e);
       }
     });
   }

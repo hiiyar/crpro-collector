@@ -1,4 +1,4 @@
-export const data = {
+export const playerData = {
   title: "Player schema",
   type: "object",
   required: ["tag", "name", "expLevel", "arena"],
