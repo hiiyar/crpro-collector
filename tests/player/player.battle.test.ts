@@ -5,8 +5,8 @@ import * as chaiJsonSchema from "chai-json-schema";
 import { ExpressService } from "../../src/services/express.service";
 import { MongoService } from "../../src/services/mongo.service";
 
-import { battlesData } from "./battlesData";
-import { battleData } from "./battleData";
+import { battlesData } from "../schemas/battlesData";
+import { battleData } from "../schemas/battleData";
 
 chai.use(chaiJsonSchema);
 chai.should();
