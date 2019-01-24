@@ -1,5 +1,5 @@
 FROM node
-LABEL Assisneto Damasceno
+LABEL Assisneto Damasceno, Lucas Reis
 COPY . /var/crpro
 WORKDIR /var/crpro
 RUN yarn install
