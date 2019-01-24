@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\"",
     "dev-populate": "nodemon src/scripts/populatedb.ts --exec \"ts-node -r dotenv/config\"",
-    "test": "mocha --timeout 20000 -r ts-node/register -r dotenv/config \"./tests/**/*.test.ts\""
+    "test": "mocha --timeout 20000 -r ts-node/register -r dotenv/config \"./tests/**/*.test.ts\"",
+    "start": "ts-node -r dotenv/config src/server.ts"
   },
   "dependencies": {
     "@types/mongoose-promise": "^4.5.7",
