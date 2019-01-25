@@ -1,0 +1,52 @@
+version: '3'
+services:
+    nginx:
+        build:
+            dockerfile: ./docker/nginx.dockerfile
+            context: .
+        image: crpro/nginx
+        container_name: nginx
+        ports:
+            - "3000:80"
+        networks: 
+            - my-network
+        depends_on: 
+            - "node1"
+            - "node2"
+            - "node3"
+
+    node1:
+        build:
+            dockerfile: ./docker/collector.dockerfile
+            context: .
+        image: crpro/collector
+        container_name: collector-1
+        ports:
+            - "3000"
+        networks: 
+            - my-network
+    node2:
+        build:
+            dockerfile: ./docker/collector.dockerfile
+            context: .
+        image: crpro/collector
+        container_name: collector-2
+        ports:
+            - "3000"
+        networks: 
+            - my-network
+
+
+    node3:
+        build:
+            dockerfile: ./docker/collector.dockerfile
+            context: .
+        image: crpro/collector
+        container_name: collector-3
+        ports:
+            - "3000"
+        networks: 
+            - my-network
+networks: 
+    my-network:
+        driver: bridge
